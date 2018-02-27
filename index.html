@@ -1,0 +1,103 @@
+<!-- Spongebob Chatbox -->
+<html>
+<head>
+	<title> Chat with Spongebob </title>
+</head>
+<body>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<div id='everything' align='middle'>
+		<img id='image' v-bind:src="imgLink"><br>
+		
+		<p id='log' >
+			
+		</p>
+		
+		<div valign='bottom'>
+			<input id='input' type='textbox' :placeholder="placeholder" v-model='str' @keyup.enter="response" autofocus> 
+			<button v-on:click='response'> chat </button> 
+		</div>
+	</div>
+</body>
+
+
+
+
+<script>
+new Vue({
+  el: '#everything',
+  data: {
+	imgLink: "https://vignette.wikia.nocookie.net/spongebob/images/a/ac/Spongebobwithglasses.jpeg/revision/latest?cb=20121014113150",
+	placeholder: "say something to Spongebob",
+	str: '',
+	moods: ['mocking', 'excited', 'studious', 'rainbow', 'patrick', 'clean', 'neaderthal'],
+  },
+  methods: {
+    response: function () {
+		// select a random spongeboby mood 
+		var rand = Math.floor(Math.random() * 7)  ;  
+		var image = document.getElementById('image');
+		var input = document.getElementById('input');
+		
+		//log input
+		console.log('You entered: ' + input.value);
+		
+		var mood = this.moods[ 0 ];
+		
+		if (mood == 'mocking'){
+			var output;
+			<!-- iterate through every character and randomise capitalization -->
+			do {
+				output = '';
+				for (x in this.str){
+					var rand = Math.floor(Math.random() * 2)  ;  
+					//rand integer between 0 and 1
+					if (rand == 0){
+						output += this.str[x].toUpperCase() ;
+					} else{
+						output += this.str[x];
+					}
+				}	
+			} while ( output == output.toUpperCase() && output == output.toLowerCase() )
+			
+			log.innerHTML = output;
+			// change image 
+			image.src = 'https://pbs.twimg.com/media/DAmiYhhWsAAfGnm.jpg';
+			// clear input
+			input.value = '';
+		} 
+    },
+  }
+})
+</script>
+
+<style>
+img {
+	height: 200px;
+	width 200px;
+	padding: 20px;
+}
+input{
+	width: 340px;
+	padding: 5px;
+	float: left;
+}
+button {
+	padding: 5px;
+	width: 50px;
+	float: right;
+}
+#everything{
+	border: 5px dashed yellow;
+	padding: 10px;
+	width: 400;
+	margin: 0 auto;
+}
+#log {
+	
+	height: 30px;
+	padding: 5px;
+	margin: 15px;
+	<!-- border: 2px solid darkgreen; -->
+	border-radius: 5px;
+}
+</style>
