@@ -57,7 +57,7 @@ new Vue({
 						output += this.str[x];
 					}
 				}	
-			} while ( output == output.toUpperCase() && output == output.toLowerCase() )
+			} while ( output == output.toUpperCase() || output == output.toLowerCase() )
 			
 			log.innerHTML = output;
 			// change image 
